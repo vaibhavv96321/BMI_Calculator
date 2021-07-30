@@ -1,11 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'icon_file.dart';
+import 'container_layout.dart';
 
 const bottomCntainerHeight =
     80.0; //this will allow us to use this quantity anywhere in the code
 const appColor = Color(0xFF1F1E33);
 const bottomContainerColor = Color(0xFFEB1555);
+const inactiveAppColor = Color(0xFF111328);
 
 class InputPage extends StatefulWidget {
   @override
@@ -13,6 +15,27 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  int gender;
+  Color maleCardColor = inactiveAppColor;
+  Color femaleCardColor = inactiveAppColor;
+  void updateColor(int gender) {
+    //for male
+    if (gender == 1) {
+      femaleCardColor = inactiveAppColor;
+      if (maleCardColor == inactiveAppColor) {
+        maleCardColor = appColor;
+      } else {
+        maleCardColor = inactiveAppColor;
+      }
+    } else if (gender == 2) {
+      maleCardColor = inactiveAppColor;
+      if (femaleCardColor == inactiveAppColor)
+        femaleCardColor = appColor;
+      else
+        femaleCardColor = inactiveAppColor;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,23 +48,37 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: Containerforlayout(
-                    colour: appColor,
-                    containerInside: UpperContInside(
-                      mficon: FontAwesomeIcons.mars,
-                      mftext: 'MALE',
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        updateColor(1);
+                      });
+                    },
+                    child: Containerforlayout(
+                      colour: maleCardColor,
+                      containerInside: UpperContInside(
+                        mficon: FontAwesomeIcons.mars,
+                        mftext: 'MALE',
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
-                  child: Containerforlayout(
-                    colour: appColor,
-                    containerInside: UpperContInside(
-                      mficon: FontAwesomeIcons.venus,
-                      mftext: "FEMALE",
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        updateColor(2);
+                      });
+                    },
+                    child: Containerforlayout(
+                      colour: femaleCardColor,
+                      containerInside: UpperContInside(
+                        mficon: FontAwesomeIcons.venus,
+                        mftext: "FEMALE",
+                      ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -61,7 +98,13 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           Container(
-            color: bottomContainerColor,
+            decoration: BoxDecoration(
+              color: bottomContainerColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              ),
+            ),
             width: double.infinity,
             margin: EdgeInsets.only(top: 10.0),
             height:
@@ -69,51 +112,6 @@ class _InputPageState extends State<InputPage> {
           )
         ],
       ),
-    );
-  }
-}
-
-class UpperContInside extends StatelessWidget {
-  final IconData mficon;
-  final String mftext;
-
-  UpperContInside({this.mficon, this.mftext});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          mficon,
-          size: 80,
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        Text(
-          mftext,
-          style: TextStyle(
-            fontSize: 18,
-            color: Color(0xFF8D8E98),
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class Containerforlayout extends StatelessWidget {
-  Containerforlayout({@required this.colour, this.containerInside});
-  final Color colour;
-  final Widget containerInside;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(15),
-      decoration:
-          BoxDecoration(color: colour, borderRadius: BorderRadius.circular(10)),
-      child: containerInside,
     );
   }
 }
