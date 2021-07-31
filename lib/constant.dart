@@ -4,7 +4,7 @@ const kBottomContainerHeight =
     80.0; //this will allow us to use this quantity anywhere in the code
 const kAppColor = Color(
     0xFF1F1E33); // a constant value can.t be changed or assign or process during initialisation or run time,
-const kBottomContainerColor = Color(0xFFEB1555);
+const kPinkishTone = Color(0xFFEB1555);
 const kInactiveAppColor = Color(0xFF111328);
 const kGreyTone = Color(0xFF8D8E98);
 

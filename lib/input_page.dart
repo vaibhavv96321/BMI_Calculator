@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_file.dart';
@@ -84,17 +85,27 @@ class _InputPageState extends State<InputPage> {
                       )
                     ],
                   ),
-                  Slider(
-                      value: height.toDouble(),
-                      min: 130,
-                      max: 210,
-                      activeColor: kBottomContainerColor,
-                      inactiveColor: kGreyTone,
-                      onChanged: (double newValue) {
-                        setState(() {
-                          height = newValue.toInt();
-                        });
-                      })
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: Colors.white,
+                      inactiveTrackColor: kGreyTone,
+                      thumbShape: RoundSliderThumbShape(
+                        enabledThumbRadius: 15,
+                      ),
+                      thumbColor: kPinkishTone,
+                      overlayShape: RoundSliderOverlayShape(overlayRadius: 30),
+                      overlayColor: Color(0x29EB1555),
+                    ),
+                    child: Slider(
+                        value: height.toDouble(),
+                        min: 130,
+                        max: 210,
+                        onChanged: (double newValue) {
+                          setState(() {
+                            height = newValue.toInt();
+                          });
+                        }),
+                  )
                 ],
               ),
             ),
@@ -113,7 +124,7 @@ class _InputPageState extends State<InputPage> {
           ),
           Container(
             decoration: BoxDecoration(
-              color: kBottomContainerColor,
+              color: kPinkishTone,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
