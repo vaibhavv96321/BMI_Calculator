@@ -2,13 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_file.dart';
 import 'container_layout.dart';
-
-const bottomCntainerHeight =
-    80.0; //this will allow us to use this quantity anywhere in the code
-const appColor = Color(
-    0xFF1F1E33); // a constant value can.t be changed or assign or process during initialisation or run time,
-const bottomContainerColor = Color(0xFFEB1555);
-const inactiveAppColor = Color(0xFF111328);
+import 'constant.dart';
 
 enum Gen { male, female }
 
@@ -19,20 +13,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gen gender;
-  //
-  // Color maleCardColor = inactiveAppColor;
-  // Color femaleCardColor = inactiveAppColor;
-  // void updateColor(Gen gender) {
-  //   //for male
-  //   (gender == Gen.male)
-  //       ? (maleCardColor == inactiveAppColor)
-  //           ? maleCardColor = appColor
-  //           : maleCardColor = inactiveAppColor
-  //       : (femaleCardColor == inactiveAppColor)
-  //           ? femaleCardColor = appColor
-  //           : femaleCardColor = inactiveAppColor;
-  // }
-
+  int height = 180;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +21,7 @@ class _InputPageState extends State<InputPage> {
         title: Center(child: Text('BMI CALCULATOR')),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             child: Row(
@@ -51,8 +33,8 @@ class _InputPageState extends State<InputPage> {
                         gender = Gen.male;
                       });
                     },
-                    colour: gender == Gen.male ? appColor : inactiveAppColor,
-                    containerInside: UpperContInside(
+                    colour: gender == Gen.male ? kAppColor : kInactiveAppColor,
+                    cardChild: UpperContInside(
                       mficon: FontAwesomeIcons.mars,
                       mftext: 'MALE',
                     ),
@@ -65,8 +47,9 @@ class _InputPageState extends State<InputPage> {
                         gender = Gen.female;
                       });
                     },
-                    colour: gender == Gen.female ? appColor : inactiveAppColor,
-                    containerInside: UpperContInside(
+                    colour:
+                        gender == Gen.female ? kAppColor : kInactiveAppColor,
+                    cardChild: UpperContInside(
                       mficon: FontAwesomeIcons.venus,
                       mftext: "FEMALE",
                     ),
@@ -76,23 +59,61 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           Expanded(
-            child: Containerforlayout(colour: appColor),
+            child: Containerforlayout(
+              colour: kAppColor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'HEIGHT',
+                    style: kSmallTextstyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline
+                        .alphabetic, // we need to do this beacuse of the baseline glitch
+                    children: [
+                      Text(
+                        '$height',
+                        style: kLargeTextStyle,
+                      ),
+                      Text(
+                        'cm',
+                        style: kSmallTextstyle,
+                      )
+                    ],
+                  ),
+                  Slider(
+                      value: height.toDouble(),
+                      min: 130,
+                      max: 210,
+                      activeColor: kBottomContainerColor,
+                      inactiveColor: kGreyTone,
+                      onChanged: (double newValue) {
+                        setState(() {
+                          height = newValue.toInt();
+                        });
+                      })
+                ],
+              ),
+            ),
           ),
           Expanded(
             child: Row(
               children: [
                 Expanded(
-                  child: Containerforlayout(colour: appColor),
+                  child: Containerforlayout(colour: kAppColor),
                 ),
                 Expanded(
-                  child: Containerforlayout(colour: appColor),
+                  child: Containerforlayout(colour: kAppColor),
                 )
               ],
             ),
           ),
           Container(
             decoration: BoxDecoration(
-              color: bottomContainerColor,
+              color: kBottomContainerColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
@@ -100,8 +121,7 @@ class _InputPageState extends State<InputPage> {
             ),
             width: double.infinity,
             margin: EdgeInsets.only(top: 10.0),
-            height:
-                bottomCntainerHeight, // this quantity is defined above at 4th line
+            height: kBottomContainerHeight,
           )
         ],
       ),
