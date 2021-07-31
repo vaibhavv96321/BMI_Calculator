@@ -5,7 +5,8 @@ import 'container_layout.dart';
 
 const bottomCntainerHeight =
     80.0; //this will allow us to use this quantity anywhere in the code
-const appColor = Color(0xFF1F1E33);
+const appColor = Color(
+    0xFF1F1E33); // a constant value can.t be changed or assign or process during initialisation or run time,
 const bottomContainerColor = Color(0xFFEB1555);
 const inactiveAppColor = Color(0xFF111328);
 
@@ -44,35 +45,30 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: Containerforlayout(
+                    onPress: () {
                       setState(() {
                         gender = Gen.male;
                       });
                     },
-                    child: Containerforlayout(
-                      colour: gender == Gen.male ? appColor : inactiveAppColor,
-                      containerInside: UpperContInside(
-                        mficon: FontAwesomeIcons.mars,
-                        mftext: 'MALE',
-                      ),
+                    colour: gender == Gen.male ? appColor : inactiveAppColor,
+                    containerInside: UpperContInside(
+                      mficon: FontAwesomeIcons.mars,
+                      mftext: 'MALE',
                     ),
                   ),
                 ),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: Containerforlayout(
+                    onPress: () {
                       setState(() {
                         gender = Gen.female;
                       });
                     },
-                    child: Containerforlayout(
-                      colour:
-                          gender == Gen.female ? appColor : inactiveAppColor,
-                      containerInside: UpperContInside(
-                        mficon: FontAwesomeIcons.venus,
-                        mftext: "FEMALE",
-                      ),
+                    colour: gender == Gen.female ? appColor : inactiveAppColor,
+                    containerInside: UpperContInside(
+                      mficon: FontAwesomeIcons.venus,
+                      mftext: "FEMALE",
                     ),
                   ),
                 ),
