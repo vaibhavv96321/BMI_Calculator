@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+const kButtonColor = Color(0xFF4C4F5E);
 const kBottomContainerHeight =
     80.0; //this will allow us to use this quantity anywhere in the code
 const kAppColor = Color(

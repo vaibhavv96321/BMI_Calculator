@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_file.dart';
 import 'container_layout.dart';
 import 'constant.dart';
+import 'buttons.dart';
 
 enum Gen { male, female }
 
@@ -15,6 +16,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gen gender;
   int height = 180;
+  int weight = 60;
+  int age = 15;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,10 +117,88 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: Containerforlayout(colour: kAppColor),
+                  child: Containerforlayout(
+                    colour: kAppColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'WEIGHT',
+                          style: kSmallTextstyle,
+                        ),
+                        Text(
+                          '$weight',
+                          style: kLargeTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundButtons(
+                              press: () {
+                                setState(() {
+                                  weight--;
+                                });
+                              },
+                              lowerIcons: FontAwesomeIcons.minus,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            RoundButtons(
+                              press: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                              lowerIcons: FontAwesomeIcons.plus,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 Expanded(
-                  child: Containerforlayout(colour: kAppColor),
+                  child: Containerforlayout(
+                    colour: kAppColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'AGE',
+                          style: kSmallTextstyle,
+                        ),
+                        Text(
+                          '$age',
+                          style: kLargeTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundButtons(
+                              press: () {
+                                setState(() {
+                                  age--;
+                                });
+                              },
+                              lowerIcons: FontAwesomeIcons.minus,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            RoundButtons(
+                              press: () {
+                                setState(() {
+                                  age++;
+                                });
+                              },
+                              lowerIcons: FontAwesomeIcons.plus,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 )
               ],
             ),
