@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/newScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'input_page.dart';
@@ -8,10 +9,13 @@ class BMICalculator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        '/': (context) => InputPage(),
+        '/result': (context) => ResultPage(),
+      },
       theme: ThemeData.dark().copyWith(
           primaryColor: Color(0xFF0A0E21),
           scaffoldBackgroundColor: Color(0xFF0A0E21)),
-      home: InputPage(),
     );
   }
 } //TODO: now this page is for themes and i will make more different pages for different pages

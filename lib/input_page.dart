@@ -203,18 +203,29 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: kPinkishTone,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/result');
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: kPinkishTone,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+              ),
+              width: double.infinity,
+              margin: EdgeInsets.only(top: 10.0),
+              height: kBottomContainerHeight,
+              child: Center(
+                child: Text(
+                  'CALCULATE',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
-            width: double.infinity,
-            margin: EdgeInsets.only(top: 10.0),
-            height: kBottomContainerHeight,
-          )
+          ),
         ],
       ),
     );
