@@ -5,7 +5,7 @@ class CalculatorBrain {
 
   double bmi;
 
-  final int hei;
+  final double hei;
   final int wei;
 
   double bmivalue() {
@@ -14,7 +14,9 @@ class CalculatorBrain {
   }
 
   String status() {
-    if (bmi > 25) {
+    if (bmi > 30)
+      return 'Obese';
+    else if (bmi > 25) {
       return 'Overweight';
     } else if (bmi > 18) {
       return 'Normal Weight';
@@ -24,7 +26,9 @@ class CalculatorBrain {
   }
 
   String suggestion() {
-    if (bmi > 25) {
+    if (bmi > 30)
+      return 'You Really need to think about it and get really Motivated';
+    else if (bmi > 25) {
       return 'Its not too late just get up and start Working out!';
     } else if (bmi > 18) {
       return 'Congratulations! you are under the normal weight catogary';

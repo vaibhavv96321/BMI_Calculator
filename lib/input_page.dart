@@ -9,6 +9,7 @@ import 'buttons.dart';
 import 'calculator_brain.dart';
 
 enum Gen { male, female }
+enum conQuan { cm, ft }
 
 class InputPage extends StatefulWidget {
   @override
@@ -16,10 +17,15 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  conQuan quan;
   Gen gender;
-  int height = 180;
+  double height = 180;
   int weight = 80;
   int age = 18;
+  String conversionQuantity = 'cm';
+  double minValue = 130;
+  double maxValue = 210;
+  int division = 80;
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +77,60 @@ class _InputPageState extends State<InputPage> {
               cardChild: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'HEIGHT',
-                    style: kSmallTextstyle,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RawMaterialButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Text(
+                            'HEIGHT(cm)',
+                            style: kSmallTextstyle,
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            quan = conQuan.cm;
+                            conversionQuantity = 'cm';
+                            minValue = 130;
+                            maxValue = 210;
+                            height = 180;
+                            division = 80;
+                          });
+                        },
+                        fillColor:
+                            quan == conQuan.cm ? Color(0xFF0A0E21) : kAppColor,
+                      ),
+                      SizedBox(
+                        width: 50,
+                      ),
+                      RawMaterialButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Text(
+                            'HEIGHT(ft)',
+                            style: kSmallTextstyle,
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            quan = conQuan.ft;
+                            conversionQuantity = 'ft';
+                            minValue = 4.0;
+                            maxValue = 8.0;
+                            height = 5.5;
+                            division = 40;
+                          });
+                        },
+                        fillColor:
+                            quan == conQuan.ft ? Color(0xFF0A0E21) : kAppColor,
+                      ),
+                    ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -86,32 +143,34 @@ class _InputPageState extends State<InputPage> {
                         style: kLargeTextStyle,
                       ),
                       Text(
-                        'cm',
+                        conversionQuantity,
                         style: kSmallTextstyle,
-                      )
+                      ),
                     ],
                   ),
                   SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                      activeTrackColor: Colors.white,
-                      inactiveTrackColor: kGreyTone,
-                      thumbShape: RoundSliderThumbShape(
-                        enabledThumbRadius: 15,
+                      data: SliderTheme.of(context).copyWith(
+                        activeTrackColor: Colors.white,
+                        inactiveTrackColor: kGreyTone,
+                        thumbShape: RoundSliderThumbShape(
+                          enabledThumbRadius: 15,
+                        ),
+                        thumbColor: kPinkishTone,
+                        overlayShape:
+                            RoundSliderOverlayShape(overlayRadius: 30),
+                        overlayColor: Color(0x29EB1555),
                       ),
-                      thumbColor: kPinkishTone,
-                      overlayShape: RoundSliderOverlayShape(overlayRadius: 30),
-                      overlayColor: Color(0x29EB1555),
-                    ),
-                    child: Slider(
-                        value: height.toDouble(),
-                        min: 130,
-                        max: 210,
+                      child: Slider(
+                        value: height,
+                        divisions: division,
+                        min: minValue,
+                        max: maxValue,
                         onChanged: (double newValue) {
                           setState(() {
-                            height = newValue.toInt();
+                            height = newValue;
                           });
-                        }),
-                  )
+                        },
+                      ))
                 ],
               ),
             ),
@@ -208,7 +267,8 @@ class _InputPageState extends State<InputPage> {
           ),
           BottomButton(
             bottomPress: () {
-              CalculatorBrain brain = CalculatorBrain(weight, height);
+              CalculatorBrain brain = CalculatorBrain(
+                  weight, quan == conQuan.cm ? height : (height * 30.48));
 
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return ResultPage(
