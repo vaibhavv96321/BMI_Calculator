@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/newScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,6 +6,7 @@ import 'icon_file.dart';
 import 'container_layout.dart';
 import 'constant.dart';
 import 'buttons.dart';
+import 'calculator_brain.dart';
 
 enum Gen { male, female }
 
@@ -16,8 +18,9 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gen gender;
   int height = 180;
-  int weight = 60;
-  int age = 15;
+  int weight = 80;
+  int age = 18;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -203,28 +206,19 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/result');
+          BottomButton(
+            bottomPress: () {
+              CalculatorBrain brain = CalculatorBrain(weight, height);
+
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return ResultPage(
+                  bmi: brain.bmivalue(),
+                  sta: brain.status(),
+                  sug: brain.suggestion(),
+                );
+              }));
             },
-            child: Container(
-              decoration: BoxDecoration(
-                color: kPinkishTone,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                ),
-              ),
-              width: double.infinity,
-              margin: EdgeInsets.only(top: 10.0),
-              height: kBottomContainerHeight,
-              child: Center(
-                child: Text(
-                  'CALCULATE',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
+            text: 'CALCULATE',
           ),
         ],
       ),
